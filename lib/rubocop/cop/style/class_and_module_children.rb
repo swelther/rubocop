@@ -26,6 +26,8 @@ module RuboCop
         COMPACT_MSG = 'Use compact module/class definition instead of ' \
                       'nested style.'
 
+        ENFORCED_ON = 'EnforcedOn'.freeze
+
         def on_class(node)
           _name, _superclass, body = *node
           check_style(node, body)
@@ -53,6 +55,13 @@ module RuboCop
 
         def check_compact_style(node, body)
           return unless one_child?(body) && !compact_node_name?(node)
+
+          enforced_on = cop_config[ENFORCED_ON].to_sym
+          if enforced_on == :class || enforced_on == :module
+            return unless enforced_on == body.type.to_sym &&
+                          enforced_on == node.type.to_sym
+          end
+
           add_offense(node, :name, COMPACT_MSG)
         end
 

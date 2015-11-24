@@ -284,6 +284,14 @@ Style/ClassAndModuleChildren:
   SupportedStyles:
     - nested
     - compact
+  # class_and_module: default, checks for nested childs in classes and modules
+  # class:  checks only for nested childs in classes
+  # module: checks only for nested childs in modules
+  EnforcedOn: class_and_module
+  SupportedEnforcedOn:
+    - class_and_module
+    - class
+    - module
 
 Style/ClassCheck:
   EnforcedStyle: is_a?
@@ -873,7 +881,7 @@ Lint/DefEndAlignment:
 Lint/UnusedBlockArgument:
   IgnoreEmptyBlocks: true
 
-# Checks for unused method arguments.  
+# Checks for unused method arguments.
 Lint/UnusedMethodArgument:
   AllowUnusedKeywordArguments: false
   IgnoreEmptyMethods: true
